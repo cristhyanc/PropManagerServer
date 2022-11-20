@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropManagerServer", "PropManagerServer\PropManagerServer.csproj", "{2AADF4F5-E8D7-4B2E-85BB-CF78D4B7D48D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropManagerModel", "PropManagerModel\PropManagerModel.csproj", "{EC5CE24A-49FA-4E3D-8AB3-40378770BC26}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2AADF4F5-E8D7-4B2E-85BB-CF78D4B7D48D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AADF4F5-E8D7-4B2E-85BB-CF78D4B7D48D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AADF4F5-E8D7-4B2E-85BB-CF78D4B7D48D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AADF4F5-E8D7-4B2E-85BB-CF78D4B7D48D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC5CE24A-49FA-4E3D-8AB3-40378770BC26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC5CE24A-49FA-4E3D-8AB3-40378770BC26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC5CE24A-49FA-4E3D-8AB3-40378770BC26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC5CE24A-49FA-4E3D-8AB3-40378770BC26}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FF03686F-CF02-4BF5-8259-9C976201DA47}
+	EndGlobalSection
+EndGlobal
