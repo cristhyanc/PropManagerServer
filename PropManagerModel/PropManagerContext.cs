@@ -14,6 +14,8 @@ namespace PropManagerModel
         public DbSet<Property> Properties { get; set; } = null!;
         public DbSet<Loan> Loans { get; set; } = null!;
 
+        public DbSet<Expense> Expenses { get; set; } = null!;
+
         protected readonly IConfiguration Configuration;
 
         public PropManagerContext(IConfiguration configuration)
@@ -32,6 +34,7 @@ namespace PropManagerModel
         {
             modelBuilder.Entity<Property>().ToTable("Properties");
             modelBuilder.Entity<Loan>().ToTable("Loans");
+            modelBuilder.Entity<Expense>().ToTable("Expenses");
         }
     }
 }

@@ -2,23 +2,23 @@
 using PropManagerModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace PropManagerServer.Mutations.LoanMutations
+namespace PropManagerServer.Mutations.ExpenseMutations
 {
     [ExtendObjectType("Mutation")]
-    public class DeleteLoanM
+    public class DeleteExpenseM
     {
-        public record DeleteLoanInput
+        public record DeleteExpenseInput
         {
             [Required]
             public Guid Id { get; set; }
         }
 
-        public async Task<bool> DeleteLoan([Service] PropManagerContext context, DeleteLoanInput input)
+        public async Task<bool> DeleteExpense([Service] PropManagerContext context, DeleteExpenseInput input)
         {
-            var loan = await context.Loans.SingleAsync(x => x.Id == input.Id);
-            if (loan is not null)
+            var expense = await context.Expenses.SingleAsync(x => x.Id == input.Id);
+            if (expense is not null)
             {
-                loan.Deleted = true;
+                expense.Deleted = true;
                 await context.SaveChangesAsync();
                 return true;
             }

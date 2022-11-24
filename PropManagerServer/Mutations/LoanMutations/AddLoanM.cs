@@ -19,6 +19,7 @@ namespace PropManagerServer.Mutations.LoanMutations
             public LoanTypes LoanType { get; set; }
             public decimal? LMI { get; set; }
             public int? Years { get; set; }
+            public DateTimeOffset? DateOfLoan { get; set; }
 
             [Required]
             public Guid PropertyId { get; set; }
@@ -26,7 +27,7 @@ namespace PropManagerServer.Mutations.LoanMutations
 
         public async Task<Loan> AddLoan([Service] PropManagerContext context, AddLoanInput input)
         {
-            var property = await context.Properties.FirstOrDefaultAsync(x => x.Id == input.PropertyId);
+            var property = await context.Properties.SingleAsync(x => x.Id == input.PropertyId);
             if(property is not null)
             {
                 var loan =new Loan();
@@ -37,7 +38,7 @@ namespace PropManagerServer.Mutations.LoanMutations
                 loan.PropertyId = input.PropertyId;
                 loan.Amount = input.Amount;
                 loan.Years = input.Years;
-
+                loan.DateOfLoan = input.DateOfLoan;
                 await context.AddAsync(loan);
                 await context.SaveChangesAsync();
                 return loan;

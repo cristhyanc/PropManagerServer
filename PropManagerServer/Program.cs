@@ -9,6 +9,7 @@ using PropManagerServer.Queries;
 using PropManagerServer.Mutations;
 using PropManagerServer.Mutations.PropertyMutations;
 using PropManagerServer.Mutations.LoanMutations;
+using PropManagerServer.Mutations.ExpenseMutations;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<PropManagerModel.PropManagerContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -24,6 +25,10 @@ builder.Services.AddGraphQLServer()
     .AddType<AddLoanM>()
     .AddType<EditLoanM>()
     .AddType<DeleteLoanM>()
+    .AddType<AddExpenseM>()
+    .AddType<EditExpenseM>()
+    .AddType<ExpenseQueries>()
+    .AddType<DeleteExpenseM>()
     .AddFiltering();
 
 builder.Services.AddCors(options =>

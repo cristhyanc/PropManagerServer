@@ -30,7 +30,7 @@ namespace PropManagerServer.Mutations.PropertyMutations
         public async Task<Property> EditProperty([Service] PropManagerContext context, EditPropertyInput input)
         {
            
-                var property = await context.Properties.FirstOrDefaultAsync(x => x.Id == input.Id);
+                var property = await context.Properties.SingleAsync(x => x.Id == input.Id);
 
                 if(property==null)
 

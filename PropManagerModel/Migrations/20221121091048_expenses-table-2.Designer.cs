@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PropManagerModel;
 
@@ -11,9 +12,10 @@ using PropManagerModel;
 namespace PropManagerModel.Migrations
 {
     [DbContext(typeof(PropManagerContext))]
-    partial class PropManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20221121091048_expenses-table-2")]
+    partial class expensestable2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,9 +35,6 @@ namespace PropManagerModel.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset>("ExpenseDate")
-                        .HasColumnType("datetimeoffset");
 
                     b.Property<decimal?>("Price")
                         .HasColumnType("decimal(18,2)");

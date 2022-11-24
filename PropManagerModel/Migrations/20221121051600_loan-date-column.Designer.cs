@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PropManagerModel;
 
@@ -11,9 +12,10 @@ using PropManagerModel;
 namespace PropManagerModel.Migrations
 {
     [DbContext(typeof(PropManagerContext))]
-    partial class PropManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20221121051600_loan-date-column")]
+    partial class loandatecolumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,41 +23,6 @@ namespace PropManagerModel.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("PropManagerModel.Model.Expense", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset>("ExpenseDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<decimal?>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid>("PropertyId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("TotalDeductable")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PropertyId");
-
-                    b.ToTable("Expenses", (string)null);
-                });
 
             modelBuilder.Entity("PropManagerModel.Model.Loan", b =>
                 {
@@ -143,17 +110,6 @@ namespace PropManagerModel.Migrations
                     b.ToTable("Properties", (string)null);
                 });
 
-            modelBuilder.Entity("PropManagerModel.Model.Expense", b =>
-                {
-                    b.HasOne("PropManagerModel.Model.Property", "Property")
-                        .WithMany("Expenses")
-                        .HasForeignKey("PropertyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Property");
-                });
-
             modelBuilder.Entity("PropManagerModel.Model.Loan", b =>
                 {
                     b.HasOne("PropManagerModel.Model.Property", "Property")
@@ -167,8 +123,6 @@ namespace PropManagerModel.Migrations
 
             modelBuilder.Entity("PropManagerModel.Model.Property", b =>
                 {
-                    b.Navigation("Expenses");
-
                     b.Navigation("Loans");
                 });
 #pragma warning restore 612, 618

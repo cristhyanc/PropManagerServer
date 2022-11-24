@@ -16,7 +16,7 @@ namespace PropManagerServer.Mutations.PropertyMutations
 
         public async Task<bool> DeleteProperty([Service] PropManagerContext context, DeletePropertyInput input)
         {
-            var property = await context.Properties.Include(x=> x.Loans).Where(x => x.Id == input.Id).FirstOrDefaultAsync();
+            var property = await context.Properties.Include(x=> x.Loans).SingleAsync(x => x.Id == input.Id);
             if (property is not null)
             {
                 property.Deleted = true;

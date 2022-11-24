@@ -34,6 +34,9 @@ namespace PropManagerModel.Model
         public decimal? Carpark { get; set; }
         public decimal? LandSize { get; set; }
         public List<Loan> Loans { get; set; } = new();
+        public List<Expense> Expenses { get; set; } = new();
+        
+
         public bool Deleted { get; set; }
 
         class ConfigureModel : IEntityTypeConfiguration<Property>
@@ -44,6 +47,12 @@ namespace PropManagerModel.Model
                     .WithOne(p=> p.Property)
                     .HasForeignKey(p=>p.PropertyId)
                     .OnDelete(DeleteBehavior.NoAction);
+
+                builder.HasMany(p => p.Expenses)
+                    .WithOne(p => p.Property)
+                    .HasForeignKey(p => p.PropertyId)
+                    .OnDelete(DeleteBehavior.NoAction);
+                
             }
         }
     }
