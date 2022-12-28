@@ -35,6 +35,7 @@ namespace PropManagerModel
             modelBuilder.Entity<Property>().ToTable("Properties");
             modelBuilder.Entity<Loan>().ToTable("Loans");
             modelBuilder.Entity<Expense>().ToTable("Expenses");
+            modelBuilder.Entity<ExpenseRecurrence>().ToTable("ExpenseRecurrence");
         }
     }
 }

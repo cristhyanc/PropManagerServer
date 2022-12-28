@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PropManagerModel;
 
@@ -11,9 +12,10 @@ using PropManagerModel;
 namespace PropManagerModel.Migrations
 {
     [DbContext(typeof(PropManagerContext))]
-    partial class PropManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20221206113021_scheduleRecurrenceo")]
+    partial class scheduleRecurrenceo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,17 +30,11 @@ namespace PropManagerModel.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CompanyName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset?>("DueDate")
-                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTimeOffset>("EndDate")
                         .HasColumnType("datetimeoffset");
@@ -49,17 +45,11 @@ namespace PropManagerModel.Migrations
                     b.Property<int>("Frequency")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Paid")
-                        .HasColumnType("bit");
-
                     b.Property<decimal?>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid>("PropertyId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Reference")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset>("StartDate")
                         .HasColumnType("datetimeoffset");

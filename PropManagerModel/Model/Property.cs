@@ -34,8 +34,7 @@ namespace PropManagerModel.Model
         public decimal? Carpark { get; set; }
         public decimal? LandSize { get; set; }
         public List<Loan> Loans { get; set; } = new();
-        public List<Expense> Expenses { get; set; } = new();
-        
+        public List<Expense> Expenses { get; set; } = new();       
 
         public bool Deleted { get; set; }
 

@@ -15,7 +15,11 @@ namespace PropManagerServer.Mutations.ExpenseMutations
             public string Title { get; set; } = default!;
             public string? Description { get; set; }
             public decimal? Price { get; set; }
+            public string? Reference { get; set; }
+            public string? CompanyName { get; set; }
             public decimal TotalDeductable { get; set; }
+            public DateTimeOffset? DueDate { get; set; }
+            public bool Paid { get; set; }
             [Required]
             public Guid Id { get; set; }
             [Required]
@@ -32,7 +36,12 @@ namespace PropManagerServer.Mutations.ExpenseMutations
                 expense.Description = input.Description;
                 expense.Price = input.Price;
                 expense.TotalDeductable = input.TotalDeductable;                
-                expense.ExpenseDate = input.ExpenseDate;                
+                expense.ExpenseDate = input.ExpenseDate;
+                expense.CompanyName = input.CompanyName;
+                expense.Reference=input.Reference;
+                expense.DueDate = input.DueDate;
+                expense.Paid = input.Paid;
+
                 await context.SaveChangesAsync();
                 return expense;
             }
