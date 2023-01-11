@@ -47,7 +47,7 @@ namespace PropManagerServer.Mutations.PropertyMutations
             catch (Exception ex)
             {
 
-                throw ex;
+                throw;
             }
 
         }

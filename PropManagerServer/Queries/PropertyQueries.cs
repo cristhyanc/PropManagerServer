@@ -12,6 +12,7 @@ namespace PropManagerServer.Queries
         {
             return propManagerContext.Properties
                 .Include(x => x.Loans.Where(y=> !y.Deleted))
+                .Include(x => x.Tenants.Where(y => !y.Deleted))
                 .Include(x => x.Expenses.Where(y => !y.Deleted))
                 .Where(x=> !x.Deleted);
         }
