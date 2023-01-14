@@ -14,7 +14,7 @@ namespace PropManagerModel
         public DbSet<Property> Properties { get; set; } = null!;
         public DbSet<Loan> Loans { get; set; } = null!;
         public DbSet<Tenant> Tenants { get; set; } = null!;
-
+        public DbSet<Rent> Rents { get; set; } = null!;
         public DbSet<Expense> Expenses { get; set; } = null!;
 
         protected readonly IConfiguration Configuration;
@@ -30,7 +30,6 @@ namespace PropManagerModel
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
         }
 
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Property>().ToTable("Properties");
@@ -38,6 +37,7 @@ namespace PropManagerModel
             modelBuilder.Entity<Expense>().ToTable("Expenses");
             modelBuilder.Entity<ExpenseRecurrence>().ToTable("ExpenseRecurrence");
             modelBuilder.Entity<Tenant>().ToTable("Tenants");
+            modelBuilder.Entity<Rent>().ToTable("Rents");
         }
     }
 }

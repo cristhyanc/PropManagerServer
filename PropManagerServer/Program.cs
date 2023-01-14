@@ -11,6 +11,7 @@ using PropManagerServer.Mutations.PropertyMutations;
 using PropManagerServer.Mutations.LoanMutations;
 using PropManagerServer.Mutations.ExpenseMutations;
 using PropManagerServer.Mutations.TenantMutations;
+using PropManagerServer.Mutations.RentMutations;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<PropManagerModel.PropManagerContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -33,6 +34,9 @@ builder.Services.AddGraphQLServer()
     .AddType<EditExpenseM>()
     .AddType<ExpenseQueries>()
     .AddType<DeleteExpenseM>()
+    .AddType<EditRentM>()
+    .AddType<AddRentM>()
+    .AddType<RentQueries>()
     .AddFiltering();
 
 builder.Services.AddCors(options =>
