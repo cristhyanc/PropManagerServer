@@ -36,6 +36,8 @@ builder.Services.AddGraphQLServer()
     .AddType<DeleteExpenseM>()
     .AddType<EditRentM>()
     .AddType<AddRentM>()
+    .AddType<DeleteRentM>()
+    .AddType<DeleteTenantM>()
     .AddType<RentQueries>()
     .AddFiltering();
 

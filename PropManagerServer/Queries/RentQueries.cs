@@ -10,7 +10,7 @@ namespace PropManagerServer.Queries
         [UseFiltering]
         public IQueryable<Rent> GetRents([Service] PropManagerContext propManagerContext)
         {
-            return propManagerContext.Rents.Where(x => !x.Deleted).Include(x => x.Tenant);
+            return propManagerContext.Rents.Where(x => !x.Deleted).Include(x => x.Tenant).ThenInclude(x=> x.Property);
         }
     }
 }
