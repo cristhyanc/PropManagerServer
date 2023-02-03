@@ -23,7 +23,7 @@ namespace PropManagerServer.Mutations.ExpenseMutations
                 return true;
             }
 
-            return false;
+            return true;
         }
     }
 }

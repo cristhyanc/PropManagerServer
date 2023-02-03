@@ -19,11 +19,10 @@ namespace PropManagerServer.Mutations.LoanMutations
             if (loan is not null)
             {
                 loan.Deleted = true;
-                await context.SaveChangesAsync();
-                return true;
+                await context.SaveChangesAsync(); 
             }
 
-            return false;
+            return true;
         }
     }
 }

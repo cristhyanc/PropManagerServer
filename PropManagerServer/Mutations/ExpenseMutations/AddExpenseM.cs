@@ -17,8 +17,8 @@ namespace PropManagerServer.Mutations.ExpenseMutations
             public decimal? Price { get; set; }
             public string? Reference { get; set; }
             public string? CompanyName { get; set; }
-            public decimal TotalDeductable { get; set; }
             public DateTimeOffset? DueDate { get; set; }
+            public RecurranceTypes ExpenseRecurrence { get; set; }
             public bool Paid { get; set; }
             [Required]
             public Guid PropertyId { get; set; }
@@ -35,20 +35,20 @@ namespace PropManagerServer.Mutations.ExpenseMutations
                 expense.Title = input.Title;
                 expense.Description = input.Description;
                 expense.Price = input.Price;
-                expense.TotalDeductable = input.TotalDeductable;
                 expense.PropertyId = input.PropertyId;
                 expense.ExpenseDate = input.ExpenseDate;
                 expense.Reference = input.Reference;
                 expense.CompanyName = input.CompanyName;
                 expense.DueDate = input.DueDate;
                 expense.Paid = input.Paid;
+                expense.ExpenseRecurrence = input.ExpenseRecurrence;
 
                 await context.AddAsync(expense);
                 await context.SaveChangesAsync();
                 return expense;
             }
 
-            return null;
+            throw new ArgumentException("Property doesn't exist");
         }
     }
 }

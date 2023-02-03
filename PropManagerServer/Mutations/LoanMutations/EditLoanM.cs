@@ -41,7 +41,7 @@ namespace PropManagerServer.Mutations.LoanMutations
                 return loan;
             }
 
-            return null;
+            throw new ArgumentException("Loan doesn't exist");
         }
     }
 }

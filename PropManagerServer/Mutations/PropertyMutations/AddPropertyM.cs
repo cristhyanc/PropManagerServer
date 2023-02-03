@@ -25,9 +25,7 @@ namespace PropManagerServer.Mutations.PropertyMutations
 
 
         public async Task<Property> AddProperty([Service] PropManagerContext propManagerContext, AddPropertyInput input)
-        {
-            try
-            {
+        { 
                 var property = new Property();
                 property.Address = input.Address;
                 property.Name = input.Name;
@@ -43,13 +41,6 @@ namespace PropManagerServer.Mutations.PropertyMutations
                 propManagerContext.Add(property);
                 await propManagerContext.SaveChangesAsync();
                 return property;
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
-
         }
     }
 }

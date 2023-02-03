@@ -19,11 +19,10 @@ namespace PropManagerServer.Mutations.TenantMutations
             {
                 tenant.Deleted = true;
                 tenant.Rents.ForEach(x => x.Deleted = true);
-                await context.SaveChangesAsync();
-                return true;
+                await context.SaveChangesAsync();                
             }
 
-            return false;
+            return true;
         }
     }
 }

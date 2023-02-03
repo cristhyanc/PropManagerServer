@@ -3,6 +3,7 @@ using PropManagerModel;
 using System.ComponentModel.DataAnnotations;
 using static PropManagerServer.Mutations.ExpenseMutations.AddExpenseM;
 using Microsoft.EntityFrameworkCore;
+using HotChocolate.Resolvers;
 
 namespace PropManagerServer.Mutations.ExpenseMutations
 {
@@ -17,8 +18,8 @@ namespace PropManagerServer.Mutations.ExpenseMutations
             public decimal? Price { get; set; }
             public string? Reference { get; set; }
             public string? CompanyName { get; set; }
-            public decimal TotalDeductable { get; set; }
             public DateTimeOffset? DueDate { get; set; }
+            public RecurranceTypes ExpenseRecurrence { get; set; }
             public bool Paid { get; set; }
             [Required]
             public Guid Id { get; set; }
@@ -34,19 +35,19 @@ namespace PropManagerServer.Mutations.ExpenseMutations
             {               
                 expense.Title = input.Title;
                 expense.Description = input.Description;
-                expense.Price = input.Price;
-                expense.TotalDeductable = input.TotalDeductable;                
+                expense.Price = input.Price;                
                 expense.ExpenseDate = input.ExpenseDate;
                 expense.CompanyName = input.CompanyName;
                 expense.Reference=input.Reference;
                 expense.DueDate = input.DueDate;
                 expense.Paid = input.Paid;
-
+                expense.ExpenseRecurrence = input.ExpenseRecurrence;
                 await context.SaveChangesAsync();
                 return expense;
             }
-
-            return null;
+           
+            throw new ArgumentException("Expense doesn't exist");
+            
         }
     }
 }

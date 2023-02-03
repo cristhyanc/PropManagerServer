@@ -10,6 +10,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PropManagerModel.Model
 {
+    public enum RecurranceTypes
+    {
+        OneOffPayment,
+        Weekly,
+        Fortnightly,
+        Monthly,
+        Quarterly,
+        Semiannually,
+        Annually
+
+    }
+
     public class Expense : IGuidKey
     {
         [Key]
@@ -19,16 +31,15 @@ namespace PropManagerModel.Model
         [Required]
         public string Title { get; set; } = default!;
         public string? Description { get; set; }
-        public decimal? Price  { get; set; }
-        public decimal TotalDeductable { get; set; }
+        public decimal? Price  { get; set; }      
         public Property Property { get; set; } = null!;
         public Guid PropertyId { get; set; }
         public bool Deleted { get; set; }
         public DateTimeOffset ExpenseDate { get; set; }
-        public List<ExpenseRecurrence> ExpenseRecurrence { get; set; } = new();
+        public List<ExpenseRecurrence> ExpenseRecurrences { get; set; } = new();
         public DateTimeOffset StartDate { get; set; }
         public DateTimeOffset EndDate { get; set; }
-        public int Frequency { get; set; }
+        public RecurranceTypes  ExpenseRecurrence { get; set; }
         public string? Reference { get; set; }
         public string? CompanyName { get; set; }
         public DateTimeOffset? DueDate { get; set; }
@@ -38,7 +49,7 @@ namespace PropManagerModel.Model
         {
             public void Configure(EntityTypeBuilder<Expense> builder)
             {
-                builder.HasMany(p => p.ExpenseRecurrence)
+                builder.HasMany(p => p.ExpenseRecurrences)
                    .WithOne(p => p.Expense)
 
                    .HasForeignKey(p => p.ExpenseId)

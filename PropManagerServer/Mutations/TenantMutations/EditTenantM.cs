@@ -32,7 +32,7 @@ namespace PropManagerServer.Mutations.TenantMutations
                 return tenant;
             }
 
-            return null;
+            throw new ArgumentException("Tenant doesn't exist");
         }
     }
 }

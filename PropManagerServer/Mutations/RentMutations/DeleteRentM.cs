@@ -19,10 +19,10 @@ namespace PropManagerServer.Mutations.RentMutations
             {
                 rent.Deleted = true;
                 await context.SaveChangesAsync();
-                return true;
+               
             }
 
-            return false;
+            return true;
         }
     }
 }

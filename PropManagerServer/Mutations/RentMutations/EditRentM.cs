@@ -18,31 +18,25 @@ namespace PropManagerServer.Mutations.RentMutations
             public RentPeriod PaymentPeriod { get; set; }
             [Required]
             public DateTimeOffset StartDate { get; set; }
-            public DateTimeOffset? EndDate { get; set; }           
+            public DateTimeOffset? EndDate { get; set; }
         }
 
         public async Task<Rent> EditRent([Service] PropManagerContext context, EditRentInput input)
         {
-            try
+            var rent = await context.Rents.SingleAsync(x => x.Id == input.Id);
+            if (rent is not null)
             {
-                var rent = await context.Rents.SingleAsync(x => x.Id == input.Id);
-                if (rent is not null)
-                {                    
-                    rent.StartDate = input.StartDate;
-                    rent.RentPrice = input.RentPrice;
-                    rent.Bond = input.Bond;
-                    rent.PaymentPeriod = input.PaymentPeriod;                    
-                    rent.EndDate = input.EndDate;                   
-                    await context.SaveChangesAsync();
-                    return rent;
-                }
-                return null;
+                rent.StartDate = input.StartDate;
+                rent.RentPrice = input.RentPrice;
+                rent.Bond = input.Bond;
+                rent.PaymentPeriod = input.PaymentPeriod;
+                rent.EndDate = input.EndDate;
+                await context.SaveChangesAsync();
+                return rent;
+            }
 
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            throw new ArgumentException("Rent doesn't exist");
+
         }
     }
 }

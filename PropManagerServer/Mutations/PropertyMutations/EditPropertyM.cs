@@ -29,30 +29,30 @@ namespace PropManagerServer.Mutations.PropertyMutations
 
         public async Task<Property> EditProperty([Service] PropManagerContext context, EditPropertyInput input)
         {
-           
-                var property = await context.Properties.SingleAsync(x => x.Id == input.Id);
 
-                if(property==null)
+            var property = await context.Properties.SingleAsync(x => x.Id == input.Id);
 
-                {
-                    return null;
-                }
+            if (property == null)
 
-                
-                property.Address = input.Address;
-                property.Name = input.Name;
-                property.StampDuty = input.StampDuty;
-                property.PurchasePrice = input.PurchasePrice;
-                property.RegistrationTransferFee = input.RegistrationTransferFee;
-                property.Rooms = input.Rooms;
-                property.Bathrooms = input.Bathrooms;
-                property.Carpark = input.Carpark;
-                property.LandSize = input.LandSize;
-                property.PropertyType = input.PropertyType == null ? PropertyTypes.House : input.PropertyType.Value;
+            {
+                throw new ArgumentException("Property doesn't exist");
+            }
 
-                context.Update(property);
-                await context.SaveChangesAsync();
-                return property;           
+
+            property.Address = input.Address;
+            property.Name = input.Name;
+            property.StampDuty = input.StampDuty;
+            property.PurchasePrice = input.PurchasePrice;
+            property.RegistrationTransferFee = input.RegistrationTransferFee;
+            property.Rooms = input.Rooms;
+            property.Bathrooms = input.Bathrooms;
+            property.Carpark = input.Carpark;
+            property.LandSize = input.LandSize;
+            property.PropertyType = input.PropertyType == null ? PropertyTypes.House : input.PropertyType.Value;
+
+            context.Update(property);
+            await context.SaveChangesAsync();
+            return property;
 
         }
     }

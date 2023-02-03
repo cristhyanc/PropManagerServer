@@ -12,9 +12,11 @@ using PropManagerServer.Mutations.LoanMutations;
 using PropManagerServer.Mutations.ExpenseMutations;
 using PropManagerServer.Mutations.TenantMutations;
 using PropManagerServer.Mutations.RentMutations;
+using PropManagerServer;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<PropManagerModel.PropManagerContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddGraphQLServer()
     .AddMutationConventions(applyToAllMutations: true)
     .AddQueryType(x=> x.Name("Query"))
@@ -39,8 +41,10 @@ builder.Services.AddGraphQLServer()
     .AddType<DeleteRentM>()
     .AddType<DeleteTenantM>()
     .AddType<RentQueries>()
-    .AddFiltering();
+    .AddFiltering()
+    .AddSorting();
 
+builder.Services.AddErrorFilter<GraphQLErrorFilter>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("devPolicy", builderPolicy =>
@@ -49,6 +53,8 @@ builder.Services.AddCors(options =>
         AllowAnyMethod();
     });
 });
+
+
 var app = builder.Build();
 app.MapGraphQL();
 

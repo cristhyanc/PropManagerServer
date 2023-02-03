@@ -31,11 +31,10 @@ namespace PropManagerServer.Mutations.PropertyMutations
                 });
 
 
-                await context.SaveChangesAsync();
-                return true;
+                await context.SaveChangesAsync(); 
             }
 
-            return false;
+            return true;
         }
     }
 }

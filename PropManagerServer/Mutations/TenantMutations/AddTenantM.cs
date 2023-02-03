@@ -22,29 +22,22 @@ namespace PropManagerServer.Mutations.TenantMutations
 
         public async Task<Tenant> AddTenant([Service] PropManagerContext context, AddTenantInput input)
         {
-            try
+            var property = await context.Properties.SingleAsync(x => x.Id == input.PropertyId);
+            if (property is not null)
             {
-                var property = await context.Properties.SingleAsync(x => x.Id == input.PropertyId);
-                if (property is not null)
-                {
-                    var tenant = new Tenant();
-                    tenant.Name = input.Name;
-                    tenant.PhoneNumber = input.PhoneNumber;
-                    tenant.Email = input.Email;
-                    tenant.PropertyId = input.PropertyId;
-                    tenant.IsCurrentTenant = input.IsCurrentTenant;
-                    await context.AddAsync(tenant);
-                    await context.SaveChangesAsync();
-                    return tenant;
-                }
-                return null; 
-
+                var tenant = new Tenant();
+                tenant.Name = input.Name;
+                tenant.PhoneNumber = input.PhoneNumber;
+                tenant.Email = input.Email;
+                tenant.PropertyId = input.PropertyId;
+                tenant.IsCurrentTenant = input.IsCurrentTenant;
+                await context.AddAsync(tenant);
+                await context.SaveChangesAsync();
+                return tenant;
             }
-            catch (Exception ex)
-            {
 
-                throw;
-            }
+            throw new ArgumentException("Property doesn't exist");
+
         }
     }
 }
