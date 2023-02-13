@@ -32,6 +32,18 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+    
+task: DotNetCoreCLI@2
+  inputs:
+    command: publish
+    publishWebProjects: True
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True
+    
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)' 
+    artifactName: 'myWebsiteName'
 
 - task: AzureRmWebAppDeployment@4
   inputs:
@@ -39,5 +51,4 @@ steps:
     azureSubscription: 'Pay-As-You-Go(5dc39103-a680-4117-97c2-216645f2df3c)'
     appType: 'webApp'
     WebAppName: 'prop-manager-server'
-    VirtualApplication: 'prop-manager-server'
     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
