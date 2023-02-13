@@ -32,3 +32,12 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Pay-As-You-Go(5dc39103-a680-4117-97c2-216645f2df3c)'
+    appType: 'webApp'
+    WebAppName: 'prop-manager-server'
+    VirtualApplication: 'prop-manager-server'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
