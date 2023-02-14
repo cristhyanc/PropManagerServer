@@ -24,6 +24,7 @@ namespace PropManagerServer.Mutations.PropertyMutations
             public decimal? Carpark { get; set; } = default;
             public decimal? LandSize { get; set; } = default;
             public PropertyTypes? PropertyType { get; set; }
+            public string? CouncilWebSite { get; set; }
         }
 
 
@@ -49,6 +50,7 @@ namespace PropManagerServer.Mutations.PropertyMutations
             property.Carpark = input.Carpark;
             property.LandSize = input.LandSize;
             property.PropertyType = input.PropertyType == null ? PropertyTypes.House : input.PropertyType.Value;
+            property.CouncilWebSite = input.CouncilWebSite;
 
             context.Update(property);
             await context.SaveChangesAsync();

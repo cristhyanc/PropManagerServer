@@ -36,7 +36,7 @@ namespace PropManagerModel.Model
         public List<Loan> Loans { get; set; } = new();
         public List<Expense> Expenses { get; set; } = new();
         public List<Tenant> Tenants { get; set; } = new();
-
+        public string? CouncilWebSite { get; set; }
         public bool Deleted { get; set; }
 
         class ConfigureModel : IEntityTypeConfiguration<Property>

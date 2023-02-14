@@ -8,6 +8,7 @@ namespace PropManagerServer.Queries
     public class LoanQueries
     {
         [UseFiltering]
+        [UseSorting]
         public IQueryable<Loan> GetLoans([Service] PropManagerContext propManagerContext)
         {
             return propManagerContext.Loans.Where(x=> !x.Deleted).Include(x=> x.Property);
