@@ -35,6 +35,14 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(System.DefaultWorkingDirectory)/_cristhyanc.PropManagerServer'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
+
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Pay-As-You-Go(5dc39103-a680-4117-97c2-216645f2df3c)'
+    appType: 'webAppLinux'
+    WebAppName: 'prop-manager-server'
+    packageForLinux: '$(Build.ArtifactStagingDirectory)/*.zip'
