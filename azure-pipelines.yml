@@ -39,6 +39,11 @@ steps:
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
+- task: DownloadBuildArtifacts@1
+  inputs:
+    buildType: 'current'
+    downloadType: 'single'
+    downloadPath: '$(Build.ArtifactStagingDirectory)'
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
