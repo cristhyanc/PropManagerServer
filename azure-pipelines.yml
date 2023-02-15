@@ -50,7 +50,7 @@ steps:
   inputs:
     command: 'custom'
     custom: 'ef'
-    arguments: 'migrations script --idempotent --project $(Build.SourcesDirectory)\PropManagerModel\PropManagerModel.csproj --output $(System.ArtifactsDirectory)/script.sql'
+    arguments: 'migrations script --idempotent --project $(Build.SourcesDirectory)\PropManagerServer\PropManagerServer.csproj --output $(System.ArtifactsDirectory)/script.sql'
 
 - task: SqlAzureDacpacDeployment@1
   displayName: 'Update Database'
