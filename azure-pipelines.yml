@@ -38,6 +38,39 @@ steps:
     command: 'publish'
     publishWebProjects: true
 
+- task: DotNetCoreCLI@2
+  displayName: 'Install EF tool'
+  inputs:
+    command: 'custom'
+    custom: 'tool'
+    arguments: 'install --global dotnet-ef'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Generate SQL Script'
+  inputs:
+    command: 'custom'
+    custom: 'ef'
+    arguments: 'migrations script --idempotent --project $(Build.SourcesDirectory)\PropManagerModel\PropManagerModel.csproj --output $(System.ArtifactsDirectory)/script.sql'
+
+- task: SqlAzureDacpacDeployment@1
+  displayName: 'Update Database'
+  inputs:
+    azureSubscription: 'Pay-As-You-Go(5dc39103-a680-4117-97c2-216645f2df3c)'
+    AuthenticationType: 'server'
+    ServerName: 'main-cris-sql-server.database.windows.net'
+    DatabaseName: 'prop-manager-db'
+    SqlUsername: 'cristhyan17'
+    SqlPassword: 'c98691710*C'
+    deployType: 'SqlTask'
+    SqlFile: '$(System.ArtifactsDirectory)/script.sql'
+    IpDetectionMethod: 'AutoDetect'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifacts'
+  inputs:
+    PathtoPublish: '$(System.ArtifactsDirectory)/script.sql'
+    ArtifactName: '$(artifactName)'
+    publishLocation: 'Container'
 - task: AzureRmWebAppDeployment@4
   inputs:
       ConnectionType: 'AzureRM'
