@@ -43,7 +43,7 @@ steps:
     ServerName: 'main-cris-sql-server.database.windows.net'
     DatabaseName: 'prop-manager-db'
     SqlUsername: 'cristhyan17'
-    SqlPassword: $(DB_PASSWORD)
+    SqlPassword: 'c98691710*C'
     deployType: 'SqlTask'
     SqlFile: '$(System.ArtifactsDirectory)/script.sql'
     IpDetectionMethod: 'AutoDetect'
