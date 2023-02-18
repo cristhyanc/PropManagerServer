@@ -38,11 +38,11 @@ steps:
     command: 'publish'
     publishWebProjects: true
 
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'Pay-As-You-Go(5dc39103-a680-4117-97c2-216645f2df3c)'
-    appType: 'webAppLinux'
-    WebAppName: 'prop-manager-server'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
-    AppSettings: '-DefaultConnection "Server=tcp:main-cris-sql-server.database.windows.net,1433;Initial Catalog=prop-manager-db;Persist Security Info=False;User ID=cristhyan17;Password=$(DB_PASSWORD);MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"'
+# - task: AzureRmWebAppDeployment@4
+#   inputs:
+#     ConnectionType: 'AzureRM'
+#     azureSubscription: 'Pay-As-You-Go(5dc39103-a680-4117-97c2-216645f2df3c)'
+#     appType: 'webAppLinux'
+#     WebAppName: 'prop-manager-server'
+#     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+#     AppSettings: '-DefaultConnection "Server=tcp:main-cris-sql-server.database.windows.net,1433;Initial Catalog=prop-manager-db;Persist Security Info=False;User ID=cristhyan17;Password=$(DB_PASSWORD);MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"'
