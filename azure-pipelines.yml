@@ -46,4 +46,3 @@ steps:
     appType: 'webAppLinux'
     WebAppName: 'prop-manager-server'
     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
-    AppSettings: '-DefaultConnection "Server=main-cris-sql-server.database.windows.net,1433;Initial Catalog=prop-manager-db;Persist Security Info=False;User ID=cristhyan17;Password=c98691710*C" -ConnectionStrings.DefaultConnection "Server=main-cris-sql-server.database.windows.net,1433;Initial Catalog=prop-manager-db;Persist Security Info=False;User ID=cristhyan17;Password=c98691710*C"'
