@@ -19,6 +19,7 @@ namespace PropManagerServer.Mutations.ExpenseMutations
             public string? CompanyName { get; set; }
             public DateTimeOffset? DueDate { get; set; }
             public RecurranceTypes ExpenseRecurrence { get; set; }
+            public int? TotalRecurrence { get; set; }
             public bool Paid { get; set; }
             [Required]
             public Guid PropertyId { get; set; }
@@ -31,24 +32,62 @@ namespace PropManagerServer.Mutations.ExpenseMutations
             var property = await context.Properties.SingleAsync(x => x.Id == input.PropertyId);
             if (property is not null)
             {
-                var expense = new Expense();
-                expense.Title = input.Title;
-                expense.Description = input.Description;
-                expense.Price = input.Price;
-                expense.PropertyId = input.PropertyId;
-                expense.ExpenseDate = input.ExpenseDate;
-                expense.Reference = input.Reference;
-                expense.CompanyName = input.CompanyName;
-                expense.DueDate = input.DueDate;
-                expense.Paid = input.Paid;
-                expense.ExpenseRecurrence = input.ExpenseRecurrence;
+                input.TotalRecurrence = input.TotalRecurrence == null || input.ExpenseRecurrence==RecurranceTypes.OneOffPayment 
+                    ? 1 : input.TotalRecurrence;
 
-                await context.AddAsync(expense);
+                var expenses = new List<Expense>();
+
+                var nextDate = input.DueDate == null ? input.ExpenseDate: input.DueDate.Value ;
+
+                for (int i = 0; i < input.TotalRecurrence; i++)
+                {
+                    var expense = new Expense();
+                    expense.Title = input.Title;
+                    expense.Description = input.Description;
+                    expense.Price = input.Price;
+                    expense.PropertyId = input.PropertyId;
+                    expense.ExpenseDate = input.DueDate == null ? nextDate : input.ExpenseDate;
+                    expense.Reference = input.Reference;
+                    expense.CompanyName = input.CompanyName;
+                    expense.DueDate = input.DueDate == null ? null : nextDate;
+                    expense.Paid = input.Paid;
+                    expense.ExpenseRecurrence = input.ExpenseRecurrence;
+                    expenses.Add(expense);
+
+                    nextDate = GetNextDate(nextDate, input.ExpenseRecurrence);
+                }
+
+
+
+                await context.AddRangeAsync(expenses);
                 await context.SaveChangesAsync();
-                return expense;
+                return expenses.First();
             }
 
             throw new ArgumentException("Property doesn't exist");
+        }
+
+        DateTimeOffset GetNextDate(DateTimeOffset currentDate, RecurranceTypes recurrance)
+        {
+            switch (recurrance)
+            {
+                case RecurranceTypes.OneOffPayment:
+                    return currentDate;
+                case RecurranceTypes.Weekly:
+                    return currentDate.AddDays(7);
+                case RecurranceTypes.Fortnightly:
+                    return currentDate.AddDays(14);
+                case RecurranceTypes.Monthly:
+                    return currentDate.AddMonths(1);
+                case RecurranceTypes.Quarterly:
+                    return currentDate.AddMonths(3);
+                case RecurranceTypes.Semiannually:
+                    return currentDate.AddMonths(6);
+                case RecurranceTypes.Annually:
+                    return currentDate.AddYears(1);
+                default:
+                    return currentDate;
+            }
         }
     }
 }
