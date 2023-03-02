@@ -33,56 +33,16 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-# - task: DotNetCoreCLI@2
-#   inputs:
-#     command: 'publish'
-#     publishWebProjects: true
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Web Artifacts'
+- task: DotNetCoreCLI@2
   inputs:
-    PathtoPublish: '$(System.ArtifactsDirectory)'
-    ArtifactName: '$(artifactName)'
-    publishLocation: 'Container'
+    command: 'publish'
+    publishWebProjects: true
 
-# - task: DotNetCoreCLI@2
-#   displayName: 'Install EF tool'
-#   inputs:
-#     command: 'custom'
-#     custom: 'tool'
-#     arguments: 'install --global dotnet-ef'
-
-# - task: DotNetCoreCLI@2
-#   displayName: 'Generate SQL Script'
-#   inputs:
-#     command: 'custom'
-#     custom: 'ef'
-#     arguments: 'migrations script --idempotent --project $(Build.SourcesDirectory)\PropManagerServer\PropManagerServer.csproj --output $(System.ArtifactsDirectory)/script.sql'
-
-# - task: SqlAzureDacpacDeployment@1
-#   displayName: 'Update Database'
-#   inputs:
-#     azureSubscription: 'Pay-As-You-Go(5dc39103-a680-4117-97c2-216645f2df3c)'
-#     AuthenticationType: 'server'
-#     ServerName: 'main-cris-sql-server.database.windows.net'
-#     DatabaseName: 'prop-manager-db'
-#     SqlUsername: 'cristhyan17'
-#     SqlPassword: $(DB_PASSWORD)
-#     deployType: 'SqlTask'
-#     SqlFile: '$(System.ArtifactsDirectory)/script.sql'
-#     IpDetectionMethod: 'AutoDetect'
-
-# - task: PublishBuildArtifacts@1
-#   displayName: 'Publish Artifacts'
-#   inputs:
-#     PathtoPublish: '$(System.ArtifactsDirectory)/script.sql'
-#     ArtifactName: '$(artifactName)'
-#     publishLocation: 'Container'
-# - task: AzureRmWebAppDeployment@4
-#   inputs:
-#     ConnectionType: 'AzureRM'
-#     azureSubscription: 'Pay-As-You-Go(5dc39103-a680-4117-97c2-216645f2df3c)'
-#     appType: 'webAppLinux'
-#     WebAppName: 'prop-manager-server'
-#     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
-#     AppSettings: '-ConnectionStrings.DefaultConnection "Server=tcp:main-cris-sql-server.database.windows.net,1433;Initial Catalog=prop-manager-db;Persist Security Info=False;User ID=cristhyan17;Password=$(DB_PASSWORD);MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"'
+- task: AzureRmWebAppDeployment@4
+  displayName: 'Deploy Azure App Service'
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Pay-As-You-Go(5dc39103-a680-4117-97c2-216645f2df3c)'
+    appType: 'webAppLinux'
+    WebAppName: 'prop-manager-server'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
