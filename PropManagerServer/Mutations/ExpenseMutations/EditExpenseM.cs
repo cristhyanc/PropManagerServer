@@ -25,6 +25,7 @@ namespace PropManagerServer.Mutations.ExpenseMutations
             public Guid Id { get; set; }
             [Required]
             public DateTimeOffset ExpenseDate { get; set; }
+            public bool IsDirectDebit { get; set; }
 
         }
 
@@ -39,6 +40,7 @@ namespace PropManagerServer.Mutations.ExpenseMutations
                 expense.ExpenseDate = input.ExpenseDate;
                 expense.CompanyName = input.CompanyName;
                 expense.Reference=input.Reference;
+                expense.IsDirectDebit = input.IsDirectDebit;
                 expense.DueDate = input.DueDate;
                 expense.Paid = input.Paid;
                 expense.ExpenseRecurrence = input.ExpenseRecurrence;

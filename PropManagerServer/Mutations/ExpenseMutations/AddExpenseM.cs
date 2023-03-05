@@ -25,6 +25,7 @@ namespace PropManagerServer.Mutations.ExpenseMutations
             public Guid PropertyId { get; set; }
             [Required]
             public DateTimeOffset ExpenseDate { get; set; }
+            public bool IsDirectDebit { get; set; }
         }
 
         public async Task<Expense> AddExpense([Service] PropManagerContext context, AddExpenseInput input)
@@ -45,6 +46,7 @@ namespace PropManagerServer.Mutations.ExpenseMutations
                     expense.Title = input.Title;
                     expense.Description = input.Description;
                     expense.Price = input.Price;
+                    expense.IsDirectDebit = input.IsDirectDebit;
                     expense.PropertyId = input.PropertyId;
                     expense.ExpenseDate = input.DueDate == null ? nextDate : input.ExpenseDate;
                     expense.Reference = input.Reference;

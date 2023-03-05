@@ -44,6 +44,7 @@ namespace PropManagerModel.Model
         public string? CompanyName { get; set; }
         public DateTimeOffset? DueDate { get; set; }
         public bool Paid { get; set; }
+        public bool IsDirectDebit { get; set; }
 
         class ConfigureModel : IEntityTypeConfiguration<Expense>
         {
